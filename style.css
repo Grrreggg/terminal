@@ -3,6 +3,7 @@
 	padding:0;
 	font-family: Geneva, Arial, Helvetica, sans-serif;
 	color:#01ea36;
+
 }
 
 .hider{
@@ -142,6 +143,8 @@
 	position:absolute;
 	width:100px; height:100px;
 	left:10px; top:10px;
+	background-image:url('logo.png');
+	background-size:contain;
 }
 #source .box .gregs{
 	position:absolute;
@@ -151,7 +154,7 @@
 	text-align:center;
 }
 #source .box .social{
-	border:2px solid #01ea36;
+	border:2px dotted #01ea36;
 	border-radius:50%;
 	position:absolute;
 	right:10px; top:10px;
@@ -171,6 +174,14 @@
 	left:120px; top:10px;
 	width:410px; height:350px;
 }
-#source .box .content p{
-	width:100%;
+#source .box .content p, #source .box .content h1, #source .box .content h2{
+	width:95%;
+	margin:5px auto;
+	font-weight:normal;
+}
+#source .box .content h1, #source .box .content h2{
+	text-align:center;
+}
+#source .box .content h2{
+	font-size:20px;
 }
