@@ -17,8 +17,6 @@
 }
 #source, #result{
 	width:640px; height:480px;
-	
-	
 
 	position:absolute;
 	background-image:url('bg1.png');
@@ -29,7 +27,6 @@
 #result, .screen_wrap .control{
 	left:33px; top:30px;
 }
-
 #result img{
 	display:none;
 }

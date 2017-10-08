@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="style.css">
 	<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
 </head>
-<body style='overflow:hidden;' onresize='sizer_controlller();'>
+<body style='overflow:hidden;' onresize='sizer_controller();' onload='call_render();'>
 <script src="glfx.js"></script>
 <script src="scary.js"></script>
 <div class='hider'>
@@ -88,11 +88,11 @@
 
 content_controller(1,1);
 
-sizer_controlller();
+sizer_controller();
 
 screen_wrap=document.getElementById('screen_wrap');
 
-function sizer_controlller(){
+function sizer_controller(){
 	x = window.innerWidth;
     y = window.innerHeight;
 	
@@ -176,6 +176,7 @@ domtoimage.toPng(source)
 		  img.id = 'image';
 		  document.getElementById("result").innerHTML='';
 		  document.getElementById("result").appendChild(img);
+		  
     })
     .catch(function(error) {
 		console.error('hueta', error);
