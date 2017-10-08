@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="style.css">
 	<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
 </head>
-<body style='overflow:hidden;' onresize='sizer_controller();' onload='call_render();'>
+<body style='overflow:hidden;' onresize='sizer_controller();' onload='call_render2();'>
 <script src="glfx.js"></script>
 <script src="scary.js"></script>
 <div class='hider'>
@@ -163,7 +163,11 @@ function call_render(){
 
 	setTimeout(function() { render_canvas(); }, 500);
 }
+function call_render2(){
+	render_image();
 
+	setTimeout(function() { render_canvas(); }, 2000);
+}
 function render_image(){
 
 var source = document.getElementById('source');
