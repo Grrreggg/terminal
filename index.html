@@ -1,0 +1,211 @@
+  <!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>3D PRODUCT</title>
+	<link rel="stylesheet" href="style.css">
+	<link href="https://fonts.googleapis.com/css?family=Comfortaa" rel="stylesheet">
+</head>
+<body style='overflow:hidden;' onresize='sizer_controlller();'>
+<script src="glfx.js"></script>
+<script src="scary.js"></script>
+<div class='hider'>
+</div>
+<div id="source">
+	<div class='box'>
+	
+		<div class='content' id='content_1_1'>
+			<p>Главная 1</p>
+		</div>
+		<div class='content' id='content_1_2'>
+			<p>Главная 2</p>
+		</div>
+		<div class='content' id='content_1_3'>
+			<p>Главная 3</p>
+		</div>		
+		
+		<div class='content' id='content_2_1'>
+			<p>Услуги</p>
+		</div>	
+		<div class='content' id='content_2_2'>
+			<p>Услуги</p>
+		</div>	
+		<div class='content' id='content_3_1'>
+			<p>Цены</p>
+		</div>	
+		<div class='content' id='content_4_1'>
+			<p>О нас</p>
+		</div>	
+		
+		<div class='social s1'>VK</div>
+		<div class='social s2'>FB</div>
+		<div class='logo'></div>
+		<div class='left_nav'>
+			<span id='page_1'>Страница 1</span>
+			<span id='page_2'>Страница 2</span>
+			<span id='page_3'>Страница 3</span>
+			<span id='page_4'>Страница 4</span>
+			<span id='page_5'>Страница 5</span>
+		</div>
+		<div class='bot_nav'>
+			<span id='cont_1'>Главная</span>
+			<span id='cont_2'>Услуги</span>
+			<span id='cont_3'>Цены</span>
+			<span id='cont_4'>О нас</span>
+		</div>
+		<p class='gregs'>&copy; Greg's development 2017</p>
+	</div>
+</div>
+
+
+
+<div class='screen_wrap' id='screen_wrap'>
+	<div class='tv'></div>
+	<div class='scanlines'></div>
+	<div id="result"></div>
+	<div class='control'>
+		<a class='page p1' id='page_control_1'></a>
+		<a class='page p2' id='page_control_2'></a>
+		<a class='page p3' id='page_control_3'></a>
+		<a class='page p4' id='page_control_4'></a>
+		<a class='page p5' id='page_control_5'></a>
+		
+		<a class='cont c1' id='content_control_1' onclick='content_controller(1,1);'></a>
+		<a class='cont c2' id='content_control_2' onclick='content_controller(2,1);'></a>
+		<a class='cont c3' id='content_control_3' onclick='content_controller(3,1);'></a>
+		<a class='cont c4' id='content_control_4' onclick='content_controller(4,1);'></a>
+		
+		<a class='gregs' href='#' ></a>
+		
+		<a class='social s1' href='#' ></a>
+		<a class='social s2' href='#' ></a>
+	</div>
+</div>
+
+
+<script>
+
+content_controller(1,1);
+
+sizer_controlller();
+
+screen_wrap=document.getElementById('screen_wrap');
+
+function sizer_controlller(){
+	x = window.innerWidth;
+    y = window.innerHeight;
+	
+	if(x>=y){
+		screen_wrap.style.transform='scale('+(y/542)+')';
+		screen_wrap.style.width='700px';
+		screen_wrap.style.right='0';		
+	}else{
+		screen_wrap.style.transform='scale('+(x/704)+')';
+		screen_wrap.style.width='auto';
+		screen_wrap.style.right='auto';
+	}
+	
+
+}
+
+function content_controller(cont,page){
+
+	
+	for (var i = 0; i < 9; i++) {
+	pages=0;	
+		for (var n = 0; n < 9; n++) {   
+		content_i=document.getElementById('content_'+i+'_'+n);
+		page_i=document.getElementById('page_'+i);
+		
+			if (content_i){ //УБИРАЕМ ВИДИМОСТЬ КОНТЕНТА
+				content_i.style.display='none';
+				active_controller('cont_'+i,0);
+			}
+			
+			if (page_i){ //УБИРАЕМ ВИДИМОСТЬ И ФУНКЦИИ СТРАНИЦ
+				page_i.style.display='none';
+				active_controller('page_'+i,0);
+				document.getElementById('page_control_'+i).setAttribute( 'onClick', '' );
+			}
+			
+			if (document.getElementById('content_'+cont+'_'+n)){pages++;} //ПОДСЧЕТ ПОДСТРАНИЦ
+		}
+	}
+	console.log(pages);
+	document.getElementById('content_'+cont+'_'+page).style.display='block';
+	
+	for (var k=1;k<=pages;k++){
+		document.getElementById('page_'+k).style.display='block';
+		document.getElementById('page_control_'+k).setAttribute( 'onClick', 'content_controller('+cont+','+k+');' );
+	}
+	
+	active_controller('page_'+page,1);
+	active_controller('cont_'+cont,1);
+	
+	call_render();
+}
+
+
+
+function active_controller(el,ch){//ДИЗАЙН АКТИВНОГО ЭЛЕМЕНТА 
+	element = document.getElementById(el);
+	
+	if(ch==1){
+		element.classList.add('active');
+	}else{
+		element.classList.remove('active');
+	}
+}
+
+function call_render(){
+	render_image();
+
+	setTimeout(function() { render_canvas(); }, 500);
+}
+
+function render_image(){
+
+var source = document.getElementById('source');
+domtoimage.toPng(source)
+    .then(function(dataUrl) {
+    console.log(dataUrl);
+		  //window.open(dataUrl);
+		  var img = new Image();
+		  img.src = dataUrl;
+		  img.id = 'image';
+		  document.getElementById("result").innerHTML='';
+		  document.getElementById("result").appendChild(img);
+    })
+    .catch(function(error) {
+		console.error('hueta', error);
+    });
+}
+function render_canvas(){
+    // try to create a WebGL canvas (will fail if WebGL isn't supported)
+    try {
+        var canvas = fx.canvas();
+    } catch (e) {
+        alert(e);
+        return;
+    }
+
+    // convert the image to a texture
+    var image = document.getElementById('image');
+    var texture = canvas.texture(image);
+
+    // apply the ink filter
+   	
+canvas.draw(texture).bulgePinch(320, 239.5, 414, 0.2).update();
+
+    // replace the image with the canvas
+    image.parentNode.insertBefore(canvas, image);
+    image.parentNode.removeChild(image);
+
+}
+
+
+
+</script>
+</body>
+</html>
