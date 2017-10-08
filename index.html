@@ -173,7 +173,7 @@ function render_image(){
 var source = document.getElementById('source');
 domtoimage.toPng(source)
     .then(function(dataUrl) {
-    console.log(dataUrl);
+
 		  //window.open(dataUrl);
 		  var img = new Image();
 		  img.src = dataUrl;
@@ -196,16 +196,22 @@ function render_canvas(){
     }
 
     // convert the image to a texture
-    var image = document.getElementById('image');
-    var texture = canvas.texture(image);
+    image = document.getElementById('image');
+    texture = canvas.texture(image);
 
     // apply the ink filter
    	
-canvas.draw(texture).bulgePinch(320, 239.5, 414, 0.2).update();
+	if (image){
+		canvas.draw(texture).bulgePinch(320, 239.5, 414, 0.2).update();
 
-    // replace the image with the canvas
-    image.parentNode.insertBefore(canvas, image);
-    image.parentNode.removeChild(image);
+		// replace the image with the canvas
+		image.parentNode.insertBefore(canvas, image);
+		image.parentNode.removeChild(image);
+	}else{
+	call_render2();
+	}
+	
+
 
 }
 
